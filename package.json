@@ -5,8 +5,8 @@
   "main": "dist/index.js",
   "scripts": {
     "start": "node dist/index.js",
-    "build": "npx tsc",
-    "publish": "npm run build && npm publish --access public"
+    "prepare": "npx tsc",
+    "publish": "npm publish --access public"
   },
   "bin": {
     "magen": "./dist/index.js"
