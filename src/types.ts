@@ -1,0 +1,1 @@
+export type ProyectSelectType = 'React for web' | 'React Native'
