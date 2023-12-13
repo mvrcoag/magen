@@ -59,6 +59,9 @@ export const formContent = (
 import { FormErrorText } from "~/components/ui/form/FormErrorText";
 import { FormField } from "~/components/ui/form/FormField";
 import { Button } from "~/components/ui/form/Button";
+import { TextInput } from "~/components/ui/form/TextInput";
+import { View, StyleSheet } from "react-native";
+import { use${sectionName}Form } from "./use${sectionName}Form";
 
   export const ${sectionName}Form = () => {
     const { formik } = use${sectionName}Form();
@@ -98,6 +101,8 @@ import { FormErrorText } from "~/components/ui/form/FormErrorText";
 import { FormField } from "~/components/ui/form/FormField";
 import { Button } from "~/components/ui/form/Button";
 import { Label } from "~/components/ui/form/Label";
+import { TextInput } from "~/components/ui/form/TextInput";
+import { use${sectionName}Form } from "./use${sectionName}Form";
 
   export const ${sectionName}Form = () => {
     const { formik } = use${sectionName}Form();
@@ -216,8 +221,8 @@ export const routerContent = ({
 }) =>
   `
   import { ${lowerFirstLetter(sectionName)}Schema } from "${schemaPath}";
-  import { z } from "zod";
   import { AxiosError } from "axios";
+  import axios from "~/lib/axios";
   
   type ExampleResponse = {
     token: string;
@@ -235,7 +240,7 @@ export const routerContent = ({
         } catch (error) {
           if (error instanceof AxiosError) {
             return {
-              error: error.cause ?? "Error desconocido",
+              error: error.response?.data.message ?? "Error desconocido",
               status: error.status ?? 500,
               data: null,
             };
