@@ -18,10 +18,18 @@ import { ProyectSelectType } from "./types";
 import { prompt } from "enquirer";
 
 const main = async () => {
+
+  console.log(`          
+  _____ ___ ___ ___ ___ 
+ |     | .'| . | -_|   |
+ |_|_|_|__,|_  |___|_|_|
+           |___|        
+ `)
+
   const { proyectType }: { proyectType: ProyectSelectType } = await prompt({
     type: "select",
     name: "proyectType",
-    message: "What type of proyect are you working on?",
+    message: "What type of project are you working on?",
     choices: ["React for web", "React Native"],
     required: true,
   });
@@ -80,7 +88,7 @@ const main = async () => {
     const { routerPath }: { routerPath: string } = await prompt({
       type: "input",
       name: "routerPath",
-      message: "Ingresa el path del router (API)",
+      message: "Path to create the router (ej: src/api/routers/auth/login)",
       initial: `src/api/routers/${snakeCase(moduleName)}`,
       required: true,
     });
@@ -97,7 +105,7 @@ const main = async () => {
           schemaPath: schemaFile.replace("src", "~").replace(".ts", ""),
         })
       );
-      console.log(routerFile, "creado");
+      console.log(routerFile, "created");
     }
   }
 
@@ -144,7 +152,7 @@ const main = async () => {
     const filePath = `${path}${file.file}`;
     if (!fs.existsSync(filePath)) {
       fs.writeFileSync(filePath, file.content);
-      console.log(filePath, "creado");
+      console.log(filePath, "created");
     }
   });
 
