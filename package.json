@@ -1,12 +1,12 @@
 {
   "name": "magen",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Magen, generate react apps with module architecture",
   "main": "dist/index.js",
   "scripts": {
     "start": "node dist/index.js",
     "prepare": "npx tsc",
-    "publish": "npm publish --access public"
+    "upload": "npm publish --access public"
   },
   "bin": {
     "magen": "./dist/index.js"
@@ -23,7 +23,7 @@
     "arc",
     "module-architecture"
   ],
-  "author": "marcofinexitus",
+  "author": "mvrcoag",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/mvrcoag/magen/issues"

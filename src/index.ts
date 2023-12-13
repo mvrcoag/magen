@@ -26,6 +26,8 @@ const main = async () => {
            |___|        
  `)
 
+ console.log("\nBy @mvrcoag\n");
+
   const { proyectType }: { proyectType: ProyectSelectType } = await prompt({
     type: "select",
     name: "proyectType",
