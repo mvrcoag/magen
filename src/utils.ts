@@ -1,4 +1,4 @@
-import { ProyectSelectType } from "./types";
+import { ProyectSelectType, RouterSelectType } from "./types";
 
 // convert string to snake_case
 export const snakeCase = (string: string) => {
@@ -17,9 +17,9 @@ export const lowerFirstLetter = (string: string) => {
 export const viewContent = (
   sectionName: string,
   proyectType: ProyectSelectType
-) =>
-  proyectType === "React Native"
-    ? `
+) => {
+  if (proyectType === "React Native")
+    return `
   import { StyleSheet, View } from "react-native";
   export const ${sectionName}View = () => {
     
@@ -34,13 +34,16 @@ export const viewContent = (
       backgroundColor: "#fff",
     },
   });
-  `
-    : `
-    export const ${sectionName}View = () => {
-      
-      return <div>{null}</div>;
-    };
-    `;
+  `;
+
+  if (proyectType === "React for web")
+    return `
+  export const ${sectionName}View = () => {
+    
+    return <div>{null}</div>;
+  };
+  `;
+};
 
 export const hookContent = (sectionName: string) =>
   `
@@ -48,87 +51,90 @@ export const hookContent = (sectionName: string) =>
   
     return { };
   };
-  `;
+`;
 
 export const formContent = (
   sectionName: string,
   proyectType: ProyectSelectType
-) =>
-  proyectType === "React Native"
-    ? `
-import { FormErrorText } from "~/components/ui/form/FormErrorText";
-import { FormField } from "~/components/ui/form/FormField";
-import { Button } from "~/components/ui/form/Button";
-import { TextInput } from "~/components/ui/form/TextInput";
-import { View, StyleSheet } from "react-native";
-import { use${sectionName}Form } from "./use${sectionName}Form";
+) => {
+  if (proyectType === "React Native")
+    return `
+  import { FormErrorText } from "~/components/ui/form/FormErrorText";
+  import { FormField } from "~/components/ui/form/FormField";
+  import { Button } from "~/components/ui/form/Button";
+  import { TextInput } from "~/components/ui/form/TextInput";
+  import { View, StyleSheet } from "react-native";
+  import { use${sectionName}Form } from "./use${sectionName}Form";
+  
+    export const ${sectionName}Form = () => {
+      const { formik } = use${sectionName}Form();
+  
+      return (
+          <View style={styles.container}>
+              <FormField>
+                  <TextInput
+                  label="Usuario"
+                  value={formik.values.email}
+                  id="email"
+                  onChangeText={(text) => formik.setFieldValue("email", text)}
+                  />
+                  {formik.touched.email && <FormErrorText error={formik.errors.email} />}
+              </FormField>
+              <FormField>
+                  <Button
+                      onPress={() => formik.handleSubmit()}
+                  >
+                      Continuar
+                  </Button>
+              </FormField>
+          </View>
+      );
+    };
+  
+    const styles = StyleSheet.create({
+      container: {
+        flex: 1,
+        justifyContent: "center",
+        padding: 16,
+      },
+    });
+    `;
 
-  export const ${sectionName}Form = () => {
-    const { formik } = use${sectionName}Form();
-
-    return (
-        <View style={styles.container}>
-            <FormField>
-                <TextInput
-                label="Usuario"
-                value={formik.values.email}
-                id="email"
-                onChangeText={(text) => formik.setFieldValue("email", text)}
-                />
-                {formik.touched.email && <FormErrorText error={formik.errors.email} />}
-            </FormField>
-            <FormField>
-                <Button
-                    onPress={() => formik.handleSubmit()}
-                >
-                    Continuar
-                </Button>
-            </FormField>
-        </View>
-    );
-  };
-
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      justifyContent: "center",
-      padding: 16,
-    },
-  });
-  `
-    : `
-import { FormErrorText } from "~/components/ui/form/FormErrorText";
-import { FormField } from "~/components/ui/form/FormField";
-import { Button } from "~/components/ui/form/Button";
-import { Label } from "~/components/ui/form/Label";
-import { TextInput } from "~/components/ui/form/TextInput";
-import { use${sectionName}Form } from "./use${sectionName}Form";
-
-  export const ${sectionName}Form = () => {
-    const { formik } = use${sectionName}Form();
-
-    return (
-        <form onSubmit={formik.handleSubmit}>
-            <FormField>
-                <Label htmlFor="email">Usuario</Label>
-                <TextInput
-                    value={formik.values.email}
-                    id="email"
-                    onChange={formik.handleChange}
-                />
-                {formik.touched.email && <FormErrorText error={formik.errors.email} />}
-            </FormField>
-            <FormField>
-                <Button
-                    type="submit"
-                >
-                    Continuar
-                </Button>
-            </FormField>
-        </form>
-    );
-  };
-  `;
+  if (proyectType === "React for web")
+    return `
+    import { FormErrorText } from "~/components/ui/form/FormErrorText";
+    import { FormField } from "~/components/ui/form/FormField";
+    import { Button } from "~/components/ui/form/Button";
+    import { Label } from "~/components/ui/form/Label";
+    import { TextInput } from "~/components/ui/form/TextInput";
+    import { use${sectionName}Form } from "./use${sectionName}Form";
+    
+      export const ${sectionName}Form = () => {
+        const { formik } = use${sectionName}Form();
+    
+        return (
+            <form onSubmit={formik.handleSubmit}>
+                <FormField>
+                    <Label htmlFor="email">Usuario</Label>
+                    <TextInput
+                        value={formik.values.email}
+                        id="email"
+                        onChange={formik.handleChange}
+                    />
+                    {formik.touched.email && <FormErrorText error={formik.errors.email} />}
+                </FormField>
+                <FormField>
+                    <Button
+                        type="submit"
+                    >
+                        Continuar
+                    </Button>
+                </FormField>
+            </form>
+        );
+      };
+      `;
+};
 
 export const formHookContent = ({
   sectionName,
@@ -201,26 +207,73 @@ export const schemaContent = (sectionName: string) =>
   `
     import { z } from "zod";
   
-  export const ${lowerFirstLetter(sectionName)}Schema = z.object({
-    name: z.string({
-      required_error: "El nombre requerido",
-    }),
-  });
+    export const ${lowerFirstLetter(sectionName)}Schema = z.object({
+      name: z.string({
+        required_error: "El nombre requerido",
+      }),
+    });
   
-  export type ${sectionName}Type = z.infer<typeof ${lowerFirstLetter(
+    export type ${sectionName}Type = z.infer<typeof ${lowerFirstLetter(
     sectionName
   )}Schema>;
   `;
 
 export const routerContent = ({
   sectionName,
-  schemaPath,
+  routerType,
 }: {
   sectionName: string;
-  schemaPath: string;
-}) =>
-  `
-  import { ${lowerFirstLetter(sectionName)}Schema } from "${schemaPath}";
+  routerType: RouterSelectType;
+}) => {
+
+  if (routerType === "None of the above") return `
+export const ${lowerFirstLetter(sectionName)}Router = {
+  example: () => {
+    return { };
+  },
+};
+  `;
+
+  if (routerType === "React Query") return `
+import { axios } from "~/lib/axios";
+import { useQuery } from "@tanstack/react-query";
+
+type ExampleResponse = {
+  message: string;
+};
+
+export const ${lowerFirstLetter(sectionName)}Router = {
+  example: () => {
+    const result = useQuery({
+      queryKey: ["example${sectionName}"],
+      queryFn: async () => {
+        const res = await axios.post<ExampleResponse>("/example");
+        return res.data;
+      },
+    });
+
+    return result;
+  },
+};
+  `;
+
+  if (routerType === "tRPC") return `
+import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
+
+import { TRPCError } from "@trpc/server";
+
+export const ${lowerFirstLetter(sectionName)}Router = createTRPCRouter({
+  getAll: protectedProcedure.query(async ({ctx}) => {
+    if (false) {
+      throw new TRPCError({ code: "UNAUTHENTICATED" });
+    }
+
+    return { };
+  }),
+});
+  `;
+
+  if (routerType === "Axios") return `
   import { AxiosError } from "axios";
   import axios from "~/lib/axios";
   
@@ -253,5 +306,5 @@ export const routerContent = ({
         }
     }
   }
-  
-  `;
+  `
+};
