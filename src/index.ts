@@ -111,12 +111,12 @@ const main = async () => {
       files.push({
         file: `/use${fullSectionName}Form.ts`,
         content: formHookContent({
-          schemaPath: schemaFile.replace("src", "~").replace(".ts", ""),
+          schemaPath: './' + lowerFirstLetter(fullSectionName) + '.schema',
           sectionName: fullSectionName,
         }),
       });
       files.push({
-        file: `/${fullSectionName}Form.schema.ts`,
+        file: `/${lowerFirstLetter(fullSectionName)}.schema.ts`,
         content: schemaContent(fullSectionName),
       });
     }
