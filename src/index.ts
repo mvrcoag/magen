@@ -168,7 +168,7 @@ const main = async () => {
       fs.writeFileSync(
         routerFile,
         routerContent({
-          sectionName: fullSectionName,
+          sectionName: moduleName,
           routerType: routerType,
         })
       );
