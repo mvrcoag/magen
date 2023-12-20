@@ -85,8 +85,6 @@ const main = async () => {
       required: true,
     });
 
-    const schemaFile = `${path}/${lowerFirstLetter(fullSectionName)}.schema.ts`;
-
     // create section folder on components if not exists
     !fs.existsSync(path) && fs.mkdirSync(path, { recursive: true });
 
@@ -157,13 +155,13 @@ const main = async () => {
     const { routerPath }: { routerPath: string } = await prompt({
       type: "input",
       name: "routerPath",
-      message: "Path to create the router (ej: src/api/routers/auth/login)",
+      message: "Path to create the router (ej: src/api/routers/auth)",
       initial: `src/api/routers/${snakeCase(moduleName)}`,
       required: true,
     });
     !fs.existsSync(routerPath) && fs.mkdirSync(routerPath, { recursive: true });
     // define the router file
-    const routerFile = `${routerPath}/${lowerFirstLetter(fullSectionName)}.ts`;
+    const routerFile = `${routerPath}/${lowerFirstLetter(moduleName)}.ts`;
 
     // create the router file
     if (!fs.existsSync(routerFile)) {

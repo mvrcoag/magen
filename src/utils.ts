@@ -236,7 +236,7 @@ export const ${lowerFirstLetter(sectionName)}Router = {
 
   if (routerType === "React Query") return `
 import { axios } from "~/lib/axios";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 
 type ExampleResponse = {
   message: string;
@@ -247,12 +247,52 @@ export const ${lowerFirstLetter(sectionName)}Router = {
     const result = useQuery({
       queryKey: ["example${sectionName}"],
       queryFn: async () => {
-        const res = await axios.post<ExampleResponse>("/example");
-        return res.data;
+        try {
+          const res = await axios.get<ExampleResponse>("/example");
+          return res.data;
+        } catch (error) {
+          if (error instanceof AxiosError) {
+            return {
+              error: error.response?.data.message ?? "Error desconocido",
+              status: error.status ?? 500,
+              data: null,
+            };
+          }
+          return {
+            error: "Error desconocido",
+            status: 500,
+            data: null,
+          };
+        }
       },
     });
 
     return result;
+  },
+  exampleMutate: () => {
+    const mutation = useMutation({
+      mutationFn: async () => {
+        try {
+          const res = await axios.post<ExampleResponse>("/example");
+          return res.data;
+        } catch (error) {
+          if (error instanceof AxiosError) {
+            return {
+              error: error.response?.data.message ?? "Error desconocido",
+              status: error.status ?? 500,
+              data: null,
+            };
+          }
+          return {
+            error: "Error desconocido",
+            status: 500,
+            data: null,
+          };
+        }
+      },
+    });
+
+    return mutation;
   },
 };
   `;
