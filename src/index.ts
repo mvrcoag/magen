@@ -2,7 +2,6 @@
 
 import * as fs from "fs";
 
-import { ProyectSelectType, RouterSelectType } from "./types";
 import {
   contextContent,
   formContent,
@@ -15,6 +14,7 @@ import {
   viewContent,
 } from "./utils";
 
+import { RouterSelectType } from "./types";
 import { prompt } from "enquirer";
 
 const main = async () => {
@@ -27,18 +27,10 @@ const main = async () => {
 
   console.log("\nBy @mvrcoag\n");
 
-  const { proyectType }: { proyectType: ProyectSelectType } = await prompt({
-    type: "select",
-    name: "proyectType",
-    message: "What type of project are you working on?",
-    choices: ["React for web", "React Native"],
-    required: true,
-  });
-
   const { moduleName }: { moduleName: string } = await prompt({
     type: "input",
     name: "moduleName",
-    message: "Module name in PascalCase (ej: Auth)",
+    message: "Module name in PascalCase (ej: Auth) (required)",
     required: true,
   });
 
@@ -47,7 +39,6 @@ const main = async () => {
     type: "input",
     name: "sectionName",
     message: "Section name in PascalCase (ej: Login)",
-    required: true,
   });
 
   const fullSectionName = moduleName + sectionName;
@@ -92,7 +83,7 @@ const main = async () => {
     const files = [
       {
         file: `/${fullSectionName}View.tsx`,
-        content: viewContent(fullSectionName, proyectType),
+        content: viewContent(fullSectionName),
       },
       {
         file: `/use${fullSectionName}.ts`,
@@ -104,12 +95,12 @@ const main = async () => {
     if (withForm) {
       files.push({
         file: `/${fullSectionName}Form.tsx`,
-        content: formContent(fullSectionName, proyectType),
+        content: formContent(fullSectionName),
       });
       files.push({
         file: `/use${fullSectionName}Form.ts`,
         content: formHookContent({
-          schemaPath: './' + lowerFirstLetter(fullSectionName) + '.schema',
+          schemaPath: "./" + lowerFirstLetter(fullSectionName) + ".schema",
           sectionName: fullSectionName,
         }),
       });
@@ -155,8 +146,8 @@ const main = async () => {
     const { routerPath }: { routerPath: string } = await prompt({
       type: "input",
       name: "routerPath",
-      message: "Path to create the router (ej: src/api/routers/auth)",
-      initial: `src/api/routers/${snakeCase(moduleName)}`,
+      message: "Path to create the router (ej: src/api/routers)",
+      initial: `src/api/routers`,
       required: true,
     });
     !fs.existsSync(routerPath) && fs.mkdirSync(routerPath, { recursive: true });

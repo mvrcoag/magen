@@ -1,0 +1,25 @@
+import React, { createContext, useContext, useState } from "react";
+
+interface ContextValues {
+    name: string;
+}
+
+const {{sectionName}}Context = createContext<ContextValues>({
+    name: "",
+});
+
+export const use{{sectionName}}Context = () => useContext({{sectionName}}Context);
+
+export const {{sectionName}}ContextProvider = ({children}: {children: React.ReactNode}) => {
+    const [name, setName] = useState("");
+    
+    return (
+        <{{sectionName}}Context.Provider
+            value={{
+                name,
+            }}
+        >
+            {children}
+        </{{sectionName}}Context.Provider>
+    );
+};

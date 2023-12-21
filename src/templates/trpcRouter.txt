@@ -1,0 +1,12 @@
+import { createTRPCRouter, protectedProcedure, publicProcedure } from "~/server/api/trpc";
+
+import { TRPCError } from "@trpc/server";
+
+export const {{lowerFirstLetterSectionName}}Router = createTRPCRouter({
+  getAll: publicProcedure.query(async ({ctx}) => {
+    return {};
+  }),
+  create: protectedProcedure.mutate(async ({ctx}) => {
+    return {}
+  })
+});

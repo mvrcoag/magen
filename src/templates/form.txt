@@ -1,0 +1,7 @@
+import { use{{sectionName}}Form } from "./use{{sectionName}}Form";
+    
+export const {{sectionName}}Form = () => {
+    const { formik } = use{{sectionName}}Form();
+
+    return null;
+};

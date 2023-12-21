@@ -1,0 +1,22 @@
+import { toFormikValidationSchema } from "zod-formik-adapter";
+import { useFormik } from "formik";
+import {
+${lowerFirstLetter(sectionName)}Schema,
+type {{sectionName}}Type,
+} from "{{schemaPath}}";
+
+const initialValues: {{sectionName}}Type = {};
+
+export const use{{sectionName}}Form = () => {
+    const formik = useFormik({
+        initialValues,
+        validationSchema: toFormikValidationSchema({{lowerFirstLetterSectionName}}Schema),
+        onSubmit: (values: {{sectionName}}Type) => {
+            console.log(values);
+        },
+    });
+
+    return {
+        formik,
+    };
+};

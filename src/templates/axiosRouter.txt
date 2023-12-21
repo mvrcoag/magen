@@ -1,0 +1,32 @@
+import { AxiosError } from "axios";
+import axios from "~/lib/axios";
+
+type ExampleResponse = {
+    token: string;
+};
+
+export const {{lowerFirstLetterSectionName}}Router = {
+    example: async () => {
+        try {
+            const res = await axios.post<ExampleResponse>("/example", values);
+            return {
+                data: res.data,
+                status: res.status,
+                error: null,
+            };
+        } catch (error) {
+            if (error instanceof AxiosError) {
+                return {
+                    error: error.response?.data.message ?? "Error desconocido",
+                    status: error.status ?? 500,
+                    data: null,
+                };
+            }
+            return {
+                error: "Error desconocido",
+                status: 500,
+                data: null,
+            };
+        }
+    }
+}
