@@ -15,19 +15,13 @@ export const {{lowerFirstLetterSectionName}}Router = {
           return res.data;
         } catch (error) {
             if (error instanceof AxiosError) {
-                return {
-                error: error.response?.data.message ?? "Error desconocido",
-                status: error.status ?? 500,
-                data: null,
-                };
+                throw new Error(
+                  error.response?.data.message ?? "Error desconocido"
+                );
             }
-            return {
-                error: "Error desconocido",
-                status: 500,
-                data: null,
-            };
-        }
-      },
+            throw new Error("Error desconocido");
+          }
+        },
     });
 
     return result;
@@ -40,19 +34,13 @@ export const {{lowerFirstLetterSectionName}}Router = {
           return res.data;
         } catch (error) {
             if (error instanceof AxiosError) {
-                return {
-                error: error.response?.data.message ?? "Error desconocido",
-                status: error.status ?? 500,
-                data: null,
-                };
+                throw new Error(
+                  error.response?.data.message ?? "Error desconocido"
+                );
             }
-            return {
-                error: "Error desconocido",
-                status: 500,
-                data: null,
-            };
-        }
-      },
+            throw new Error("Error desconocido");
+          }
+        },
     });
 
     return mutation;
