@@ -1,11 +1,12 @@
 {
   "name": "magen",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "Magen, generate react apps with module architecture",
   "main": "dist/index.js",
   "scripts": {
     "start": "node dist/index.js",
-    "prepare": "npx tsc",
+    "prepare": "npx tsc && npm run copy",
+    "copy": "ts-node ./src/copy_assets.ts",
     "upload": "npm publish --access public"
   },
   "bin": {
@@ -31,6 +32,7 @@
   "homepage": "https://github.com/mvrcoag/magen#readme",
   "devDependencies": {
     "@types/node": "^20.10.4",
+    "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   },
   "dependencies": {
