@@ -6,7 +6,7 @@ export const {{lowerFirstLetterSectionName}}Router = createTRPCRouter({
   getAll: publicProcedure.query(async ({ctx}) => {
     return {};
   }),
-  create: protectedProcedure.mutate(async ({ctx}) => {
+  create: protectedProcedure.mutation(async ({ctx}) => {
     return {}
   })
 });

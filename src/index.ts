@@ -150,9 +150,9 @@ const main = async () => {
       initial: `src/api/routers`,
       required: true,
     });
-    !fs.existsSync(routerPath) && fs.mkdirSync(routerPath, { recursive: true });
+    !fs.existsSync(routerPath) && fs.mkdirSync(routerPath + "/" + lowerFirstLetter(moduleName), { recursive: true });
     // define the router file
-    const routerFile = `${routerPath}/${lowerFirstLetter(moduleName)}.ts`;
+    const routerFile = `${routerPath}/${lowerFirstLetter(moduleName)}/${lowerFirstLetter(moduleName)}.ts`;
 
     // create the router file
     if (!fs.existsSync(routerFile)) {

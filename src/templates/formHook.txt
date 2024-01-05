@@ -1,7 +1,7 @@
 import { toFormikValidationSchema } from "zod-formik-adapter";
 import { useFormik } from "formik";
 import {
-${lowerFirstLetter(sectionName)}Schema,
+{{lowerFirstLetterSectionName}}Schema,
 type {{sectionName}}Type,
 } from "{{schemaPath}}";
 

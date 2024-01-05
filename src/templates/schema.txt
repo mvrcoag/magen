@@ -2,7 +2,7 @@ import { z } from "zod";
   
 export const {{lowerFirstLetterSectionName}}Schema = z.object({
   name: z.string({
-    required_error: "El nombre requerido",
+    required_error: "El nombre es requerido",
   }),
 });
 
