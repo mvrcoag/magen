@@ -1,6 +1,6 @@
 {
   "name": "magen",
-  "version": "1.2.12",
+  "version": "1.2.14",
   "description": "Magen, generate react apps with module architecture",
   "main": "dist/index.js",
   "scripts": {

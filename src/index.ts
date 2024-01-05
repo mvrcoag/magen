@@ -30,7 +30,7 @@ const main = async () => {
   const { moduleName }: { moduleName: string } = await prompt({
     type: "input",
     name: "moduleName",
-    message: "Module name in PascalCase (ej: Auth) (required)",
+    message: "Module name in PascalCase (e.g. Auth) (required)",
     required: true,
   });
 
@@ -38,7 +38,7 @@ const main = async () => {
   const { sectionName }: { sectionName: string } = await prompt({
     type: "input",
     name: "sectionName",
-    message: "Section name in PascalCase (ej: Login)",
+    message: "Section name in PascalCase (e.g. Login)",
   });
 
   const fullSectionName = moduleName + sectionName;
@@ -55,7 +55,7 @@ const main = async () => {
     const { path }: { path: string } = await prompt({
       type: "input",
       name: "path",
-      message: "Path to create the section (ej: src/modules/auth/login)",
+      message: "Path to create the section (e.g. src/modules/auth/login)",
       initial: `src/modules/${snakeCase(moduleName)}/${snakeCase(sectionName)}`,
       required: true,
     });
@@ -146,7 +146,7 @@ const main = async () => {
     const { routerPath }: { routerPath: string } = await prompt({
       type: "input",
       name: "routerPath",
-      message: "Path to create the router (ej: src/api/routers)",
+      message: "Path to create the router (e.g. src/api/routers)",
       initial: `src/api/routers`,
       required: true,
     });
